@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Actions\Action;
 use App\Libs\Model\CrudModel;
 
-class ViewUserAction extends Action
+class DeleteUserAction extends Action
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,10 @@ class ViewUserAction extends Action
         $id = $this->resolveArg('id');
 
         $model = new CrudModel('account_info');
-        $user = $model->select('id = :id AND delete_time IS NULL', [':id' => $id]);
-        return $this->success($user);
+        // hard delete
+        $model->delete('id = :id', [':id' => $id]);
+        // soft delete
+        // $model->update(['delete_time' => date('Y-m-d H:i:s')], 'id = :id', [':id' => $id]);
+        return $this->success($id);
     }
 }

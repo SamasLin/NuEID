@@ -7,8 +7,12 @@ use App\Application\ResponseEmitter\ResponseEmitter;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
+use App\Libs\Kit\AppKit;
 
 require __DIR__ . '/../vendor/autoload.php';
+
+define('CONFIG_FILE_PATH', __DIR__ . '/../app/config.php');
+AppKit::readConfig(CONFIG_FILE_PATH);
 
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();

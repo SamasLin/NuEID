@@ -7,17 +7,17 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Actions\Action;
 use App\Libs\Model\CrudModel;
 
-class ViewUserAction extends Action
+class ListUserAction extends Action
 {
     /**
      * {@inheritdoc}
      */
     protected function action(): Response
     {
-        $id = $this->resolveArg('id');
-
         $model = new CrudModel('account_info');
-        $user = $model->select('id = :id AND delete_time IS NULL', [':id' => $id]);
-        return $this->success($user);
+        $userList = $model->select();
+        return $this->respondWithData($userList, 200);
+
+        // TODO: render page
     }
 }
